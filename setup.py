@@ -11,12 +11,12 @@ setup(
     description=metadata['title'],
     license=metadata.get('license', ''),
     url=metadata.get('url', ''),
-    py_modules=['cldfbench_dplace-dataset-carneiro6'],
+    py_modules=['cldfbench_carneiro6'],
     include_package_data=True,
     zip_safe=False,
     entry_points={
         'cldfbench.dataset': [
-            'dplace-dataset-carneiro6=cldfbench_dplace-dataset-carneiro6:Dataset',
+            'dplace-dataset-carneiro6=cldfbench_carneiro6:Dataset',
         ]
     },
     install_requires=[
