@@ -1,0 +1,17 @@
+{
+    "communities": [
+        {
+            "identifier": "dplace"
+        }
+    ],
+    "title": "D-PLACE dataset derived from Robert L. Carneiro's Dataset (6th edition)",
+    "access_right": "open",
+    "keywords": [
+        "cldf:StructureDataset",
+        "linguistics"
+    ],
+    "upload_type": "dataset",
+    "license": {
+        "id": "CC-BY-4.0"
+    }
+}

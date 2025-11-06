@@ -265,7 +265,7 @@ class Dataset(DatasetWithSocieties):
                     Soc_ID=sid,
                     Value=row['Trait_presence'],
                     Comment=row['Original_notes'],
-                    Source=source,
+                    Source=sorted(set(source)),
                     admin_comment=row['Comments'],
                     year=int(focal_years[sid]) if focal_years[sid] else None,
                 ))
