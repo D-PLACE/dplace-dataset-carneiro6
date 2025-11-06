@@ -147,8 +147,12 @@ class Dataset(DatasetWithSocieties):
                 rid = self.mkid(row['Trait_ID_6th'])
                 i += 1
                 source = []
-                for key, pages in iter_refs(row['Reference']):
-                    key = {
+                refs = {
+                    'Westermann 1912: XXIX;XXXIII; Cann 1929: 252': 'Westermann 1912: XXIX,XXXIII; Cann 1929: 252'
+                }.get(row['Reference'], row['Reference'])
+                for key, pages in iter_refs(refs):
+                    for ok, nk in {
+                        'Howel 1941': 'Howell 1941',
                         'Gould 1967': 'Gould pers. comm. (1967)',
                         'Roth 1980': 'Roth 1890',
                         'Selingman & Selingman 1932': 'Seligman & Seligman 1932',
@@ -157,16 +161,63 @@ class Dataset(DatasetWithSocieties):
                         'Métreaux 1928': 'Métraux 1928',
                         'Headland 1986': 'Headland pers. comm. (1986)',
                         'MArsden 1811': 'Marsden 1811',
-                        'Frank 1959, Vol. 5': 'Frank (1959b)',
-                        'Frank 1959, Vol. 1': 'Frank (1959a)',
+                        'Frank 1959, Vol. 5': ('Frank (1959b)', 'Vol. 5'),
+                        'Frank 1959, Vol. 1': ('Frank (1959a)', 'Vol. 1'),
                         'Bodwich 1873': 'Bowdich 1873',
                         'Rattray1927': 'Rattray 1927',
                         'Rattray 1937': 'Rattray 1927',
                         'Richard 1928': 'Reichard 1928',
                         'Richard 1950': 'Reichard 1950',
-                        'Morgan 1901, Vol. 1': 'Morgan (1901)',
-                        'Morgan 1901, Vol. 2': 'Morgan (1901)',
-                    }.get(key, key)
+                        'Morgan 1901, Vol. 1': ('Morgan (1901)', 'Vol. 1'),
+                        'Morgan 1901, Vol. 2': ('Morgan (1901)', 'Vol. 2'),
+                        'Kane 1930 733-735': ('Kane 1930', '733-735'),
+                        'Basham 1963; 112-113,116,215-216': ('Basham 1963', '112-113,116,215-216'),
+                        'Briket-Smith 1930': 'Birket-Smith 1930',
+                        'Goltz 1929': 'Glotz 1929',
+                        'Goltz 1967': 'Glotz 1967',
+                        'Wilkinson, Vol. 1': ('Wilkinson 1879', 'Vol. 1'),
+                        'Wilkinson 1879, Vol. 1': ('Wilkinson 1879', 'Vol. 1'),
+                        'Wilkinson, Vol. 2': ('Wilkinson 1879', 'Vol. 2'),
+                        'Wilkinson 1879, Vol. 2': ('Wilkinson 1879', 'Vol. 2'),
+                        'Myers 1894': 'Myer 1894',
+                        'Mill 1926': 'Mills 1926',
+                        'Schweinfurth 1874, vol. I': ('Schweinfurth 1874', 'vol. I'),
+                        'Schweinfurth 1874, vol I': ('Schweinfurth 1874', 'vol. I'),
+                        'Schweinfurth 1874, vol II': ('Schweinfurth 1874', 'vol. II'),
+                        'Schweinfurth 1874 ,vol. II': ('Schweinfurth 1874', 'vol. II'),
+                        'Schweinfurth 1874, vol. II': ('Schweinfurth 1874', 'vol. II'),
+                        'Lagae & Vanden Plas 1921, vol. 18': ('Lagae & Vanden Plas 1921', 'vol. 18'),
+                        'Lagae & Vanden Plas 1921, vol.18': ('Lagae & Vanden Plas 1921', 'vol. 18'),
+                        'Lagae & Vanden Plas 1921, vol. 6': ('Lagae & Vanden Plas 1921', 'vol. 6'),
+                        'Ellis 1831, Vol 1': ('Ellis 1831', 'vol. 1'),
+                        'Ellis 1831, vol. 1': ('Ellis 1831', 'vol. 1'),
+                        'Ellis 1831, vol. 2': ('Ellis 1831', 'vol. 2'),
+                        'Ellis 1831, vol. 3': ('Ellis 1831', 'vol. 3'),
+                        'Williamson 1924, vol. 1': ('Williamson 1924', 'vol. 1'),
+                        'Williamson 1924, vol. 2': ('Williamson 1924', 'vol. 2'),
+                        'Williamson 1924, vol. 3': ('Williamson 1924', 'vol. 3'),
+                        'Handy [1930?]': 'Handy 1930',
+                        'Eels 1879': 'Eells 1879',
+                        'Eels 1887': 'Eells 1887b',
+                        'Waterhpise 1901': 'Waterhouse 1901',
+                        'Suetonius 1957; 218': ('Suetonius 1957', '218'),
+                        'Carcopino 176,187': ('Carcopino 1956', '176,187'),
+                        'Busia 13-14': ('Busia 1951', '13-14'),
+                        'Robertson [?]': 'Robertson 1875',
+                        'Leinhardt 1954': 'Lienhardt 1954',
+                        'Evans-Pitchard 1951': 'Evans-Pritchard 1951',
+                        'Pumphrey 1914': 'Pumphrey 1941',
+                    }.items():
+                        pg = None
+                        if isinstance(nk, tuple):
+                            nk, pg = nk
+                        if key == ok:
+                            key = nk
+                            if pg:
+                                if pages:
+                                    pages = pg + ' ' + pages
+                                else:
+                                    pages = pg
                     key = {
                         ('Evans-Pritchard 1940', 'CARNEIRO6_037_Nuer.Sheet1'): 'Evans-Pritchard (1940b)',
                         ('Métreaux 1948', 'CARNEIRO6_048_Guarani.Sheet1'): 'Métraux 1948d',
@@ -179,8 +230,29 @@ class Dataset(DatasetWithSocieties):
                         ('Cooper 1946', 'CARNEIRO6_070_Ona.Sheet1'): 'Cooper (1946b)',
                         ('Swanton 1928', 'CARNEIRO6_017_Creek.Sheet1'): 'Swanton (1928a)',
                         ('Swanton 1928s', 'CARNEIRO6_017_Creek.Sheet1'): 'Swanton (1928a)',
+                        ('Du chaillu 1889, Vol. 1', 'CARNEIRO6_005_Vikings.Sheet1'): 'Du Chaillu (1889)',
+                        ('Du Chaillu 1889, Vol. 1', 'CARNEIRO6_005_Vikings.Sheet1'): 'Du Chaillu (1889)',
+                        ('Du Chaillu 1889, Vol. 2', 'CARNEIRO6_005_Vikings.Sheet1'): 'Du Chaillu (1889)',
+                        ('Evans-Pritchard 1957', 'CARNEIRO6_010_Azande.Sheet1'): 'Evans-Pritchard 1957a',
+                        ('Eells 1887', 'CARNEIRO6_075_Klallam.Sheet1'): 'Eells 1887b',
+                        ('Adams 1801', 'CARNEIRO6_001_Roman_Empire.Sheet1'): 'Adam 1792',
+                        ('Howell 1952', 'CARNEIRO6_014_Shilluk.Sheet1'): 'Howell 1952a',
+                        ('Oyler 1918', 'CARNEIRO6_014_Shilluk.Sheet1'): 'Oyler 1918b',
                     }.get((key, p.stem), key)
-                    assert key in key2bib, (key, p.stem)
+                    if key in {
+                        'Basham 1960',
+                        '?',
+                        'Smith 1831',  # Either Smith 1918 or Beechey 1831.
+                        'Spencer [?]',  # Referenced with "col. 200" and "col. 16" and "col. 14,24"
+                        'Frank [?]',  # Several Frank publications in the bib
+                        'Rattray',  # Could be 1923 or 1927
+                        'Tyler 1965',  # Probably some variant of Tyler 1891
+                        'Howell [?], etc. all sources',
+                        '(+) ?+B386',  # unclear. Maybe an ill-formatted spreadsheet formula.
+                        'Evans-Pritchard',  # Too unspecific
+                    }:
+                        continue
+                    assert key in key2bib, (key, p.stem, row['Reference'])
                     src = key2bib[key]
                     if pages:
                         src += '[{}]'.format(pages.strip().replace(';', ','))
