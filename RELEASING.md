@@ -28,6 +28,8 @@ git status
 git tag
 ```
 
+Add, commit and push changes.
+
 ```shell
-dplace release cldfbench_carneiro4.py vX.Y
+dplace release cldfbench_carneiro6.py vX.Y
 ```
