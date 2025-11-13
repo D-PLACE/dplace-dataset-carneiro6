@@ -13,5 +13,28 @@
     "upload_type": "dataset",
     "license": {
         "id": "CC-BY-4.0"
-    }
+    },
+    "creators": [
+        {
+            "name": "Robert L. Carneiro"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "V\u00e1clav Hrn\u010d\u00ed\u0159",
+            "type": "DataCurator"
+        },
+        {
+            "name": "V\u00e1clav Hrn\u010d\u00ed\u0159",
+            "type": "Editor"
+        },
+        {
+            "name": "Robert Forkel",
+            "type": "DataCurator"
+        },
+        {
+            "name": "Robert Forkel",
+            "type": "Editor"
+        }
+    ]
 }

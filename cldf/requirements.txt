@@ -9,7 +9,7 @@ chardet==5.2.0
 cldfbench==1.14.2
 cldfcatalog==1.6.0
 cldfviz==1.3.0
-cldfzenodo==2.1.2
+-e git+https://github.com/cldf/cldfzenodo@804cc086a0615b164c9b30a33de6c08623b981b7#egg=cldfzenodo
 clldutils==3.24.2
 colorama==0.4.6
 colorlog==6.10.1
@@ -36,11 +36,12 @@ newick==1.10.0
 numpy==2.3.4
 openpyxl==3.1.5
 packaging==25.0
+phlorest==1.7.0
 platformdirs==4.5.0
 pluggy==1.6.0
 pycldf==1.43.0
 pycountry==24.6.1
--e git+https://github.com/d-place/pydplace@8a39c56e30c9714c9021c35f602270a4735f977e#egg=pydplace
+-e git+https://github.com/d-place/pydplace@e02bbc1f3e2b21b297c088fdfc4819df8db4b8a8#egg=pydplace
 pyglottolog==3.16.0
 Pygments==2.19.2
 pylatexenc==2.10
