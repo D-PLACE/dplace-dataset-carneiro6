@@ -118,6 +118,11 @@ class Dataset(DatasetWithSocieties):
         #Trait_ID_6th, Category, Trait_name, Trait_description
         for row in self.raw.read_csv('6th_edition_traits.Sheet1.csv', dicts=True):
             row = {k: v.strip() for k, v in row.items()}
+            if ',' in row['Category']:
+                # The D-PLACE CLDF model specifies ", " as separator for the content of the category
+                # column.
+                assert row['Category'] == 'Tools, Utensils, and Textiles'
+                row['Category'] = 'Tools and Utensils and Textiles'
             rid = row['Trait_ID_6th']
             # Trait_ID_6th,Category,Trait_description
             if row['Trait_ID_6th']:
